@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Dobble Social Network: Profile Page</title>
+    <title>Synergy</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
@@ -94,7 +94,13 @@
                     <li><strong>Gender: </strong>{{record['gender']}}</li>
                     <li><strong>Email: </strong>{{record['email']}}</li>
                     <li><strong>College: </strong>{{record['college']}}</li>
-                    <li><strong>Area of interest: </strong>{{record['domain']}}</li>
+                    <!--<li><strong>Area of interest: </strong>{{record['domain']}}</li>-->
+					<li><strong>Area of interest:
+					
+					{%for d in record['domain']%}
+					<li style="text-indent: 3em;"></strong>- {{d}}</li>
+						{%endfor%}
+					</li>
                     <li><strong>Username: </strong>{{record['username']}}</li>
                   </ul>
                 </div>
@@ -221,7 +227,7 @@
 
     <footer>
       <div class="container">
-        <p>Dobble Copyright &copy, 2015</p>
+        <p>Collaborative Development Platform</p>
       </div>
     </footer>
 

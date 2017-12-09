@@ -98,18 +98,18 @@
                  <div class="row">
                    <div class="col-sm-2">
 				   {% if det['status']=="student" and det['gender']=="male"%}
-						<a href="profile.html" class="post-avatar thumbnail"><img src="{{url_for('static', filename='img/stumale.png')}}" alt=""><div class="text-center">{{rec['username']}}</div></a>
+						<a href="{{ url_for('getprofile', values=rec['username']) }}" class="post-avatar thumbnail"><img src="{{url_for('static', filename='img/stumale.png')}}" alt=""><div class="text-center">{{rec['username']}}</div></a>
 					{%endif%}
 					
 					{% if det['status']=="student" and det['gender']=="female" %}
-						<a href="profile.html" class="post-avatar thumbnail"><img src="{{url_for('static', filename='img/stufemale.png')}}" alt=""><div class="text-center">{{rec['username']}}</div></a>
+						<a href="{{ url_for('getprofile', values=rec['username']) }}" class="post-avatar thumbnail"><img src="{{url_for('static', filename='img/stufemale.png')}}" alt=""><div class="text-center">{{rec['username']}}</div></a>
 					{%endif%}
 					
 					{% if det['status']=="alumni" and det['gender']=="male"%}
-						<a href="profile.html" class="post-avatar thumbnail"><img src="{{url_for('static', filename='img/male.png')}}" alt=""><div class="text-center">{{rec['username']}}</div></a>
+						<a href="{{ url_for('getprofile', values=rec['username']) }}" class="post-avatar thumbnail"><img src="{{url_for('static', filename='img/male.png')}}" alt=""><div class="text-center">{{rec['username']}}</div></a>
 					{%endif%}
 					{% if det['status']=="alumni" and det['gender']=="female"%}
-						<a href="profile.html" class="post-avatar thumbnail"><img src="{{url_for('static', filename='img/female.png')}}" alt=""><div class="text-center">{{rec['username']}}</div></a>
+						<a href="{{ url_for('getprofile', values=rec['username']) }}" class="post-avatar thumbnail"><img src="{{url_for('static', filename='img/female.png')}}" alt=""><div class="text-center">{{rec['username']}}</div></a>
 					{%endif%}
 				
                      
