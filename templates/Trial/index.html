@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Synergy</title>
+	<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+	
+    <!-- Bootstrap core CSS 
+    <link href="css/bootstrap.css" rel="stylesheet">-->
+
+    <!-- Custom styles for this template 
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">-->
+	 <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/font-awesome.css') }}" rel="stylesheet">
+	
+  </head>
+
+  <body>
+	<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+	
+  <header>
+    
+	<div class="container">
+     
+      <form method=POST action="{{ url_for('index') }}" class="form-inline">
+		<div class="headline">
+	   <div class="form-group">
+		
+           <h2>Synergy</h2>
+		 </div>
+        </div>
+		
+        <button type="submit" class="btn btn-default" name="logout" value="logout">Logout</button>
+        
+      </form>
+    </div>
+  </header>
+	
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('following') }}">Following</a></li>
+			<li><a href="{{ url_for('followers') }}">Followers</a></li>
+ <!--           <li><a href="contact.html">Contact</a></li>
+            <li><a href="groups.html">Groups</a></li>
+            <li><a href="photos.html">Photos</a></li>		-->
+            <li><a href="{{ url_for('profile') }}">Profile</a></li>
+			<li><a href="{{ url_for('messenger') }}">Messenger</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Blog</h3>
+              </div>
+              <div class="panel-body">
+                <form method=POST action="{{ url_for('index') }}">
+                  <div class="form-group">
+                    <textarea class="form-control" name="blog" placeholder="Write a blog"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-default" name="submit" value="submit">Submit</button>
+                  <div class="pull-right">
+                  <!--  <div class="btn-toolbar">
+                      <button type="button" class="btn btn-default"><i class="fa fa-pencil"></i>Text</button>
+                      <button type="button" class="btn btn-default"><i class="fa fa-file-image-o"></i>Image</button>
+<!--                      <button type="button" class="btn btn-default"><i class="fa fa-file-video-o"></i>Video</button>	
+                    </div>-->
+                  </div>
+                </form>
+              </div>
+            </div>
+              {% for rec,det in list %}
+            <div class="panel panel-default post">
+              <div class="panel-body">
+                 <div class="row">
+                   <div class="col-sm-2">
+				   {% if det['status']=="student" and det['gender']=="male"%}
+						<a href="profile.html" class="post-avatar thumbnail"><img src="{{url_for('static', filename='img/stumale.png')}}" alt=""><div class="text-center">{{rec['username']}}</div></a>
+					{%endif%}
+					
+					{% if det['status']=="student" and det['gender']=="female" %}
+						<a href="profile.html" class="post-avatar thumbnail"><img src="{{url_for('static', filename='img/stufemale.png')}}" alt=""><div class="text-center">{{rec['username']}}</div></a>
+					{%endif%}
+					
+					{% if det['status']=="alumni" and det['gender']=="male"%}
+						<a href="profile.html" class="post-avatar thumbnail"><img src="{{url_for('static', filename='img/male.png')}}" alt=""><div class="text-center">{{rec['username']}}</div></a>
+					{%endif%}
+					{% if det['status']=="alumni" and det['gender']=="female"%}
+						<a href="profile.html" class="post-avatar thumbnail"><img src="{{url_for('static', filename='img/female.png')}}" alt=""><div class="text-center">{{rec['username']}}</div></a>
+					{%endif%}
+				
+                     
+<!--                     <div class="likes text-center">7 Likes</div>	-->
+                   </div>
+                   <div class="col-sm-10">
+                     <div class="bubble">
+                       <div class="pointer">
+                           {{rec['blog']}}
+<!--                         <p>Hey I was wondering if you wanted to go check out the football game later. I heard they are supposed to be really good!</p>	-->
+                       </div>
+                       <div class="pointer-border"></div>
+                     </div>
+                    <!-- <p class="post-actions"><a href="#">Comment</a> - <a href="#">Like</a> - <a href="#">Follow</a> - <a href="#">Share</a></p>-->
+					</br>
+                     <div class="comment-form">
+                       <form class="form-inline" method=POST action="{{ url_for('index', values=rec['blog'] ) }}">
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="comments" placeholder="enter comment">
+                        </div>
+                        <button type="submit" name="comment" class="btn btn-default">Add</button>
+                      </form>
+                     </div>
+                     <div class="clearfix"></div>
+					{% for comment in rec['comments'] %}
+                   <div class="comments">
+                       <!--<div class="comment">
+                         <a href="#" class="comment-avatar pull-left"><img src="img/user.png" alt=""></a>
+                         <div class="comment-text">
+                           <p>I am just going to paste in a paragraph, then we will add another clearfix.</p>
+                         </div>
+                       </div>-->
+                       <div class="clearfix"></div>
+                       <div class="comment">
+                         <a href="#" class="comment-avatar pull-left"><img src="img/user.png" alt=""></a>
+                         <div class="comment-text">
+                           <p>{{comment}}</p>
+                         </div>
+                       </div>
+                       <div class="clearfix"></div>
+                     </div>	
+					 {%endfor%}
+					 <!-- class comment ends-->
+                   </div>
+				    <!-- class col sum 10 ends-->
+                 </div>
+				 
+              </div>
+            </div>
+			{% endfor %}
+          </div>		
+            
+          <div class="col-md-4">
+            <div class="panel panel-default friends">
+              <div class="panel-heading">
+                <h3 class="panel-title">People you may know</h3>
+              </div>
+              <div class="panel-body">
+                <ul>
+                 <!-- <li><a href="profile.html" class="thumbnail"><img src="{{url_for('static', filename='img/user.png')}}" alt=""></a></li>
+                  <li><a href="profile.html" class="thumbnail"><img src="{{url_for('static', filename='img/user.png')}}" alt=""></a></li>
+                  <li><a href="profile.html" class="thumbnail"><img src="{{url_for('static', filename='img/user.png')}}" alt=""></a></li>
+                  <li><a href="profile.html" class="thumbnail"><img src="{{url_for('static', filename='img/user.png')}}" alt=""></a></li>
+                  <li><a href="profile.html" class="thumbnail"><img src="{{url_for('static', filename='img/user.png')}}" alt=""></a></li>
+                  <li><a href="profile.html" class="thumbnail"><img src="{{url_for('static', filename='img/user.png')}}" alt=""></a></li>
+                  <li><a href="profile.html" class="thumbnail"><img src="{{url_for('static', filename='img/user.png')}}" alt=""></a></li>
+                  <li><a href="profile.html" class="thumbnail"><img src="{{url_for('static', filename='img/user.png')}}" alt=""></a></li>
+                  <li><a href="profile.html" class="thumbnail"><img src="{{url_for('static', filename='img/user.png')}}" alt=""></a></li>-->
+				  
+
+					{%for rec in newlist if newlist.index(rec)<9%}
+					
+					{% if rec['status']=="student" and rec['gender']=="male"%}
+						<li><a href="{{ url_for('getprofile', values=rec['username']) }}" class="thumbnail"><img src="{{url_for('static', filename='img/stumale.png')}}" alt=""></a></li>
+					
+					
+					{% elif rec['status']=="student" and rec['gender']=="female" %}
+						<li><a href="{{ url_for('getprofile', values=rec['username']) }}" class="thumbnail"><img src="{{url_for('static', filename='img/stufemale.png')}}" alt=""></a></li>
+					
+					
+					{% elif rec['status']=="alumni" and rec['gender']=="male"%}
+						<li><a href="{{ url_for('getprofile', values=rec['username']) }}" class="thumbnail"><img src="{{url_for('static', filename='img/male.png')}}" alt=""></a></li>
+					
+					{% elif rec['status']=="alumni" and rec['gender']=="female"%}
+						<li><a href="{{ url_for('getprofile', values=rec['username']) }}" class="thumbnail"><img src="{{url_for('static', filename='img/female.png')}}" alt=""></a></li>
+					
+					{%else%}
+						<li><a href="{{ url_for('getprofile', values=rec['username']) }}" class="thumbnail"><img src="{{url_for('static', filename='img/stumale.png')}}" alt=""></a></li>
+					{%endif%}
+					
+					{%endfor%}
+					 {% for x in range(count, 9) %}
+						<li><a href="#" class="thumbnail"><img src="{{url_for('static', filename='img/user.png')}}" alt=""></a></li>
+					{% endfor %}
+                </ul>
+                <div class="clearfix"></div>
+                <a class="btn btn-primary" href="/friends">View All Friends</a>
+              </div>
+            </div>
+            <div class="panel panel-default groups">
+              <div class="panel-heading">
+                <h3 class="panel-title">Recommendations</h3>
+              </div>
+			  
+              <div class="panel-body">
+				{%for rec in recomlist if recomlist.index(rec)<3%}
+				
+                <div class="group-item">
+					{% if rec['status']=="student" and rec['gender']=="male"%}
+						<a href="{{ url_for('getprofile', values=rec['username']) }}" class=""><img src="{{url_for('static', filename='img/stumale.png')}}" alt=""></a>
+					
+					
+					{% elif rec['status']=="student" and rec['gender']=="female" %}
+						<a href="{{ url_for('getprofile', values=rec['username']) }}" class=""><img src="{{url_for('static', filename='img/stufemale.png')}}" alt=""></a>
+					
+					
+					{% elif rec['status']=="alumni" and rec['gender']=="male"%}
+						<a href="{{ url_for('getprofile', values=rec['username']) }}" class=""><img src="{{url_for('static', filename='img/male.png')}}" alt=""></a>
+					
+					{% elif rec['status']=="alumni" and rec['gender']=="female"%}
+						<a href="{{ url_for('getprofile', values=rec['username']) }}" class=""><img src="{{url_for('static', filename='img/female.png')}}" alt=""></a>
+					
+					{%else%}
+						<a href="{{ url_for('getprofile', values=rec['username']) }}" class=""><img src="{{url_for('static', filename='img/user.png')}}" alt=""></a>
+					{%endif%}
+                  <!--<img src="{{url_for('static', filename='img/user.png')}}" alt="">-->
+                  <h4><a href="#" class="">{{rec['name']}}</a></h4>
+<!--                 <!-- <p>This is a paragraph of intro text, or whatever I want to call it.</p>		-->
+             </div>  
+				{%endfor%}
+			
+			 {% for x in range(count1, 3) %}
+			 <div class="group-item">
+				<a href="#" class=""><img src="{{url_for('static', filename='img/user.png')}}" alt=""></a>
+				<h4><a href="#" class="">Someone</a></h4>
+				</div>
+			{% endfor %}
+			   
+				
+			
+              <!--  <div class="clearfix"></div>
+                <div class="group-item">
+                  <img src="{{url_for('static', filename='img/user.png')}}" alt="">
+                  <h4><a href="#" class="">Suggestion Two</a></h4>
+<!--                  <p>This is a paragraph of intro text, or whatever I want to call it.</p>	-->
+            <!--    </div>
+                <div class="clearfix"></div>
+                <div class="group-item">
+                  <img src="{{url_for('static', filename='img/user.png')}}" alt="">
+                  <h4><a href="#" class="">Suggestion Three</a></h4>
+<!--                  <p>This is a paragraph of intro text, or whatever I want to call it.</p>		
+                </div>-->
+                <div class="clearfix"></div>
+                <a href="/recommendations" class="btn btn-primary">View more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>Collaborative Development Platform</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
+     <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+  </body>
+</html>

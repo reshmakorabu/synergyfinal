@@ -1,0 +1,62 @@
+  <html>
+  <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up Form</title>
+        <!--link rel="stylesheet" href="css/normalize.css">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'
+        <link rel='stylesheet' type='text/css' href='stylesheet.css'/>-->
+		<link href="{{ url_for('static', filename='css/stylesheet.css') }}" rel="stylesheet">
+
+    </head>
+    <body>
+
+
+      <form method=POST action="{{ url_for('register') }}">
+      
+        <h1>Sign Up</h1>
+        
+        <fieldset>
+          <legend><span class="number">1</span>Your basic info</legend>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="fullname">
+          
+          <label for="mail">Email:</label>
+          <input type="email" id="mail" name="mail">
+          <p>What is your gender?</p>
+         <input type="radio" name="gender" value="male"> Male
+		<input type="radio" name="gender" value="female"> Female
+		</p>
+          
+		   
+          <label for="cname">College name:</label>
+          <input type="text" id="cname" name="cname">
+		  
+		 <!--  <label for="gyear">Graduation Year:</label>
+          <input type="text" id="gyear" name="gyear">-->
+		  
+		  
+		  <input type="radio" name="gyear" value="student"> Student
+		<input type="radio" name="gyear" value="alumni"> Alumni
+		  
+		   <label for="username">Username:</label>
+          <input type="text" id="username" name="username">
+		   
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="userpassword">
+        
+        <fieldset>
+          <legend><span class="number">2</span>Your profile</legend>
+          <label for="bio">About me:</label>
+          <textarea id="bio" name="user_bio"></textarea>
+        </fieldset>
+        
+        
+        
+		   
+        </fieldset>
+        <button type="submit">Sign Up</button>
+      </form>
+      
+    </body>
+</html>
