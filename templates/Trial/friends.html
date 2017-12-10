@@ -125,7 +125,7 @@
 				 </form>
                 </div>
                 <div class="col-md-3">
-                  <p><a href="{{ url_for('messages',values=element) }}" class="btn btn-default btn-block"><i class="fa fa-envelope"></i> Send Message</a></p>
+                  <p><a href="{{ url_for('messages',values=element['username']) }}" class="btn btn-default btn-block"><i class="fa fa-envelope"></i> Send Message</a></p>
                 </div>
                 <div class="col-md-3">
                   <p><a href="{{ url_for('getprofile', values=element['username']) }}" class="btn btn-primary btn-block"><i class="fa fa-edit"></i> View Profile</a></p>
