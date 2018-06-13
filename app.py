@@ -11,11 +11,13 @@ import datetime
 
 app = Flask(__name__)
 
-app.config['MONGO_DBNAME'] = "todo"
-app.config['MONGO_URI'] = "mongodb://sh221:sh221@ds129344.mlab.com:29344/todo"
-app.config['SECRET_KEY']='synergy1234'
+#app.config['MONGO_DBNAME'] = "todo"
+#app.config['MONGO_URI'] = "mongodb://sh221:sh221@ds129344.mlab.com:29344/todo"
+#app.config['SECRET_KEY']='synergy1234'
 #app.config['MONGO_URI'] = "mongodb://localhost:33333/todo"
 
+app.config['MONGO_DBNAME'] = "todo"
+app.config['MONGO_URI'] ="mongodb://localhost"
 mongo = PyMongo(app)
 
 @app.route('/')
